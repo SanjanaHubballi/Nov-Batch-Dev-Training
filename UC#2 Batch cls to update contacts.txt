@@ -1,0 +1,24 @@
+public class Batchclstoupdatecontact implements database.Batchable<sObject>
+{
+    Public Database.Querylocator start (Database.BatchableContext bc)
+    {
+        String query = 'SELECT name title, Account.name, Account.description FROM Contact';
+    Return Database.getQueryLocator(query);
+    }
+    Public void execute (Database.BatchableContext bc, List<contact> contacts)
+    {
+        if(contacts!=null)
+        {
+            for(Contact con:contacts)
+            {
+                con.Description = con.Title + 'of' + con.Account.Name + ':' +con.Account.Description;
+                System.debug(con.Description);
+            }
+            update contacts;
+        }
+    }
+    Public void finish(Database.BatchableContext bc)
+    {
+        //success or failure smg
+    }
+}
